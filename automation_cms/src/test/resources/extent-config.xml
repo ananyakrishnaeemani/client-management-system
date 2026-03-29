@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+  <configuration>
+    <theme>DARK</theme>
+    <encoding>UTF-8</encoding>
+    <documentTitle>Financial Advisor Portal - Automation Report</documentTitle>
+    <reportName>Financial Advisor Portal - E2E Test Report</reportName>
+    <timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
+    <css>
+      .brand-logo { display: none; }
+      .nav-logo span { font-size: 18px; font-weight: 700; color: #1976d2; }
+      .test-status-badge { border-radius: 4px; padding: 2px 8px; font-size: 12px; }
+    </css>
+  </configuration>
+</extentreports>

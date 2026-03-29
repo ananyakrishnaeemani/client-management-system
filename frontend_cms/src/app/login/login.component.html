@@ -1,0 +1,36 @@
+<div class="auth-container animate-fade-in">
+  <mat-card class="auth-card">
+    <mat-card-header class="auth-header">
+      <div class="icon-wrapper">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="32" height="32" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"></path>
+        </svg>
+      </div>
+      <mat-card-title class="gradient-text">Welcome Back</mat-card-title>
+      <mat-card-subtitle>Sign in to your Advisor Dashboard</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="agent@example.com">
+          <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('email')">Invalid email address</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" placeholder="Enter your password">
+          <mat-error *ngIf="form.get('password')?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+
+        <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+        <button mat-raised-button color="primary" type="submit" class="full-width auth-btn" [disabled]="form.invalid">Sign In</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="auth-footer">
+      <p>Don't have an account? <a routerLink="/signup" class="accent-link">Create one here</a></p>
+    </mat-card-actions>
+  </mat-card>
+</div>

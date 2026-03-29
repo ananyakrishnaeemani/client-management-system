@@ -1,0 +1,235 @@
+<h2>{{ isEditMode ? 'Edit Client' : 'Add New Client' }}</h2>
+
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="form-container">
+  
+  <h3 class="section-title">1. Personal Information</h3>
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Full Name</mat-label>
+      <input matInput id="name" formControlName="name">
+      <mat-error *ngIf="clientForm.get('name')?.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date of Birth</mat-label>
+      <input matInput id="dob" type="date" formControlName="dob">
+      <mat-error *ngIf="clientForm.get('dob')?.hasError('required')">Date of birth is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row" style="margin-bottom: 15px;">
+    <label style="font-weight: 500; display: block; margin-right: 15px;">Gender *</label>
+    <mat-radio-group formControlName="gender">
+      <mat-radio-button value="Male" style="margin-right: 15px;">Male</mat-radio-button>
+      <mat-radio-button value="Female" style="margin-right: 15px;">Female</mat-radio-button>
+      <mat-radio-button value="Other">Other</mat-radio-button>
+    </mat-radio-group>
+    <span class="field-error" *ngIf="clientForm.get('gender')?.invalid && clientForm.get('gender')?.touched">Gender is required</span>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput id="phone" formControlName="phone">
+      <mat-error *ngIf="clientForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
+      <mat-error *ngIf="clientForm.get('phone')?.hasError('pattern')">Phone must contain only digits and hyphens</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput id="email" type="email" formControlName="email">
+      <mat-error *ngIf="clientForm.get('email')?.hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="clientForm.get('email')?.hasError('email')">Enter a valid email address</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Address</mat-label>
+      <textarea matInput formControlName="address" rows="3"></textarea>
+    </mat-form-field>
+  </div>
+  
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Blood Group</mat-label>
+      <mat-select id="bloodGroup" formControlName="bloodGroup">
+        <mat-option *ngFor="let bg of bloodGroups" [value]="bg">{{bg}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="clientForm.get('bloodGroup')?.hasError('required')">Blood group is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>ID Type</mat-label>
+      <mat-select id="idType" formControlName="idType">
+        <mat-option *ngFor="let idt of idTypes" [value]="idt">{{idt}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="clientForm.get('idType')?.hasError('required')">ID type is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>ID Number</mat-label>
+      <input matInput id="idNumber" formControlName="idNumber">
+      <mat-error *ngIf="clientForm.get('idNumber')?.hasError('required')">ID number is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <h3 class="section-title">2. Financial Snapshot</h3>
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Annual Income</mat-label>
+      <mat-select formControlName="annualIncome">
+        <mat-option *ngFor="let inc of incomeRanges" [value]="inc">{{inc}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="clientForm.get('annualIncome')?.hasError('required')">Annual income is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Employment Status</mat-label>
+      <mat-select formControlName="employmentStatus">
+        <mat-option *ngFor="let emp of employmentStatuses" [value]="emp">{{emp}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="clientForm.get('employmentStatus')?.hasError('required')">Employment status is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Approx Net Worth</mat-label>
+      <mat-select formControlName="approxNetWorth">
+        <mat-option *ngFor="let nw of netWorthOptions" [value]="nw">{{nw}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div style="flex:1; padding-left: 20px;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Existing Loans?</label>
+      <mat-radio-group formControlName="existingLoans">
+        <mat-radio-button value="Yes" style="margin-right: 15px;">Yes</mat-radio-button>
+        <mat-radio-button value="No">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Planned Investment Amount ($)</mat-label>
+      <input matInput type="text" id="investmentAmount" formControlName="investmentAmount" placeholder="e.g. 5000">
+      <mat-error *ngIf="clientForm.get('investmentAmount')?.hasError('required')">Investment amount is required</mat-error>
+      <mat-error *ngIf="clientForm.get('investmentAmount')?.hasError('pattern')">Must be a valid positive number (e.g. 5000 or 5000.50)</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Investment Horizon (Months)</mat-label>
+      <input matInput type="text" id="investmentDuration" formControlName="investmentDuration" placeholder="e.g. 12">
+      <mat-error *ngIf="clientForm.get('investmentDuration')?.hasError('required')">Investment duration is required</mat-error>
+      <mat-error *ngIf="clientForm.get('investmentDuration')?.hasError('pattern')">Must be a whole positive number (e.g. 12)</mat-error>
+    </mat-form-field>
+  </div>
+
+  <h3 class="section-title">3. Investment Preferences</h3>
+  <div class="row" style="margin-bottom: 15px;">
+    <div style="flex: 1;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Investment Goals</label>
+      <mat-checkbox formControlName="goalGrowth" style="margin-right: 10px;">Growth</mat-checkbox>
+      <mat-checkbox formControlName="goalRetirement" style="margin-right: 10px;">Retirement</mat-checkbox>
+      <mat-checkbox formControlName="goalTaxSaving">Tax Saving</mat-checkbox>
+    </div>
+    <div style="flex: 1;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Preferred Assets</label>
+      <mat-checkbox formControlName="assetStocks" style="margin-right: 10px;">Stocks</mat-checkbox>
+      <mat-checkbox formControlName="assetMutualFunds" style="margin-right: 10px;">Mutual Funds</mat-checkbox>
+      <mat-checkbox formControlName="assetBonds">Bonds</mat-checkbox>
+    </div>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline" style="width: 50%;">
+      <mat-label>Liquidity Need</mat-label>
+      <mat-select formControlName="liquidityNeed">
+        <mat-option *ngFor="let liq of liquidityNeeds" [value]="liq">{{liq}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3 class="section-title">4. Risk Assessment</h3>
+  
+  <div class="row" style="align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+    <div style="flex: 1; min-width: 250px;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Risk Tolerance *</label>
+      <mat-radio-group id="riskTolerance" formControlName="riskTolerance" style="display: flex; flex-direction: column;">
+        <mat-radio-button *ngFor="let risk of riskTolerances" [value]="risk" style="margin-bottom: 5px;">
+          {{risk}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <span class="field-error" *ngIf="clientForm.get('riskTolerance')?.invalid && clientForm.get('riskTolerance')?.touched">Risk tolerance is required</span>
+    </div>
+
+    <div style="flex: 1; min-width: 250px;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Reaction to 20% Market Drop *</label>
+      <mat-radio-group formControlName="marketDropReaction" style="display: flex; flex-direction: column;">
+        <mat-radio-button *ngFor="let react of marketDropReactions" [value]="react" style="margin-bottom: 5px;">
+          {{react}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <span class="field-error" *ngIf="clientForm.get('marketDropReaction')?.invalid && clientForm.get('marketDropReaction')?.touched">Please select a reaction</span>
+    </div>
+    
+    <div style="flex: 1; min-width: 250px;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Investment Experience *</label>
+      <mat-radio-group formControlName="investmentExperience" style="display: flex; flex-direction: column;">
+        <mat-radio-button *ngFor="let exp of investmentExperiences" [value]="exp" style="margin-bottom: 5px;">
+          {{exp}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <span class="field-error" *ngIf="clientForm.get('investmentExperience')?.invalid && clientForm.get('investmentExperience')?.touched">Investment experience is required</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <mat-checkbox id="policy" formControlName="policyPreference" color="primary">Opt-in for New Policies</mat-checkbox>
+    </div>
+  </div>
+
+  <h3 class="section-title">5. Compliance & Documents</h3>
+  <div class="row" style="align-items: center; margin-bottom: 15px;">
+    <div style="flex: 1;">
+      <mat-checkbox formControlName="kycCompleted" color="accent">KYC Completed Offline</mat-checkbox>
+    </div>
+    <div style="flex: 1;">
+      <label style="font-weight: 500; display: block; margin-bottom: 8px;">Politically Exposed Person?</label>
+      <mat-radio-group formControlName="politicallyExposed">
+        <mat-radio-button value="Yes" style="margin-right: 15px;">Yes</mat-radio-button>
+        <mat-radio-button value="No">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <h3 class="section-title">6. Document Upload (Single)</h3>
+  <div style="margin-bottom: 25px; padding: 20px; border: 2px dashed #1976d2; border-radius: 8px; text-align: center; background-color: #f5f9ff;">
+    <input type="file" id="fileUpload" class="file-input" (change)="onFileSelected($event)" style="display: none;" #fileUpload accept=".pdf,.jpg,.jpeg">
+    <button mat-raised-button color="primary" type="button" (click)="fileUpload.click()" style="margin-right: 15px;">
+       Upload Document (PDF / JPG)
+    </button>
+    <span style="color: #333; font-weight: 500;">
+      {{fileName || "No file attached yet. Please upload ID Proof / Combined PDF."}}
+    </span>
+  </div>
+
+  <div style="margin-bottom: 30px; padding: 10px; background: #f9f9f9; border-left: 4px solid #1976d2;">
+    <mat-checkbox formControlName="acceptTerms" color="primary"><strong>I accept the Terms & Conditions and certify that all provided information is accurate. *</strong></mat-checkbox>
+    <div>
+      <span class="field-error" *ngIf="clientForm.get('acceptTerms')?.hasError('required') && clientForm.get('acceptTerms')?.touched">You must accept the terms & conditions</span>
+    </div>
+  </div>
+
+  <div class="submit-error-banner" *ngIf="submissionError">
+    <span>⚠ Please fill in all required fields before submitting.</span>
+    <button type="button" class="dismiss-btn" (click)="submissionError = false">✕</button>
+  </div>
+
+  <div class="actions">
+    <button mat-button type="button" routerLink="/">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" id="submitBtn">Save Client</button>
+  </div>
+</form>

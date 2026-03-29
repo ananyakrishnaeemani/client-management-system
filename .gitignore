@@ -1,0 +1,61 @@
+# ── Maven (backend_cms & automation_cms) ─────────────────────────────────────
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# ── Spring Boot ───────────────────────────────────────────────────────────────
+*.log
+spring-shell.log
+application-local.properties
+
+# ── Angular (frontend_cms) ────────────────────────────────────────────────────
+frontend_cms/node_modules/
+frontend_cms/dist/
+frontend_cms/.angular/cache/
+frontend_cms/.angular/
+frontend_cms/*.js.map
+
+# ── Selenium / Test Reports ───────────────────────────────────────────────────
+automation_cms/target/screenshots/
+automation_cms/target/extent-report/
+automation_cms/target/surefire-reports/
+automation_cms/target/cucumber-reports/
+
+# ── Eclipse IDE ───────────────────────────────────────────────────────────────
+.classpath
+.project
+.settings/
+.factorypath
+bin/
+*.launch
+
+# ── IntelliJ IDEA ─────────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ── VS Code ───────────────────────────────────────────────────────────────────
+.vscode/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Environment / Secrets ─────────────────────────────────────────────────────
+.env
+*.env.local

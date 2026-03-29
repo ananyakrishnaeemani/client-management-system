@@ -1,0 +1,95 @@
+<div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+  <h2>Client Dashboard</h2>
+  <button mat-raised-button color="primary" id="addClientBtn" routerLink="/add">Add New Client</button>
+</div>
+
+<div class="clients-table-wrapper">
+  <table mat-table [dataSource]="clients" class="mat-elevation-z8 clients-table">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef class="col-id"> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef class="col-name"> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef class="col-phone"> Phone </th>
+    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="riskCategory">
+    <th mat-header-cell *matHeaderCellDef class="col-risk"> Risk Category </th>
+    <td mat-cell *matCellDef="let element"> 
+      <span
+        class="risk-badge"
+        [ngClass]="{
+          'risk-high': element.riskCategory === 'High',
+          'risk-medium': element.riskCategory === 'Medium',
+          'risk-low': element.riskCategory !== 'High' && element.riskCategory !== 'Medium'
+        }"
+      >
+        <span class="risk-dot" aria-hidden="true"></span>
+        <span class="risk-text">{{element.riskCategory}} </span>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef class="col-actions"> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="clients-table__actions">
+        <button
+          mat-stroked-button
+          color="primary"
+          [routerLink]="['/view', element.id]"
+          matTooltip="View client"
+          aria-label="View client"
+          class="action-btn"
+        >
+          <svg class="action-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2" />
+          </svg>
+          <span class="action-text">View</span>
+        </button>
+        <button
+          mat-stroked-button
+          color="accent"
+          [routerLink]="['/edit', element.id]"
+          matTooltip="Edit client"
+          aria-label="Edit client"
+          class="action-btn"
+        >
+          <svg class="action-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 20h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="action-text">Edit</span>
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="deleteClient(element.id)"
+          matTooltip="Delete client"
+          aria-label="Delete client"
+          class="action-btn"
+        >
+          <svg class="action-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 6h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M8 6V4h8v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M6 6l1 16h10l1-16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="action-text">Delete</span>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>

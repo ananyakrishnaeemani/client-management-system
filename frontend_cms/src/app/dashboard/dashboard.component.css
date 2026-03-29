@@ -1,0 +1,137 @@
+/* Dashboard table UI polish (no behavioral changes). */
+
+.clients-table-wrapper {
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: #ffffff;
+}
+
+/* Keep the header visible when the table scrolls. */
+.clients-table-wrapper .mat-header-row,
+.clients-table-wrapper .mat-mdc-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.clients-table-wrapper .mat-header-cell,
+.clients-table-wrapper .mat-mdc-header-cell {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.clients-table-wrapper .mat-row,
+.clients-table-wrapper .mat-mdc-row {
+  transition: background-color 120ms ease-in-out;
+}
+
+.clients-table-wrapper .mat-row:hover,
+.clients-table-wrapper .mat-mdc-row:hover {
+  background-color: rgba(79, 70, 229, 0.06);
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Column sizing / alignment */
+.clients-table .col-id {
+  width: 80px;
+}
+.clients-table .col-phone {
+  width: 170px;
+}
+.clients-table .col-risk {
+  width: 180px;
+}
+.clients-table .col-actions {
+  width: 260px;
+}
+
+.clients-table td.mat-cell,
+.clients-table td.mat-mdc-cell {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.clients-table__actions {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Make actions visible even if the Material icon font isn't loaded. */
+.action-text {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.action-btn {
+  min-width: 0;
+  padding: 4px 8px;
+  border-radius: 10px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Risk badge */
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.risk-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.risk-text {
+  text-transform: none;
+}
+
+.risk-high {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+.risk-high .risk-dot {
+  background: rgba(239, 68, 68, 0.9);
+}
+.risk-medium {
+  background: rgba(245, 158, 11, 0.14);
+  color: #f59e0b;
+}
+.risk-medium .risk-dot {
+  background: rgba(245, 158, 11, 0.95);
+}
+.risk-low {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+.risk-low .risk-dot {
+  background: rgba(16, 185, 129, 0.95);
+}
+
+.action-svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: currentColor;
+}
+

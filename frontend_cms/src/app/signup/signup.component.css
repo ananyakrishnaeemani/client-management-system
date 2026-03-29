@@ -1,0 +1,23 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+.auth-card {
+  width: 400px;
+  padding: 20px;
+}
+.full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.error-msg {
+  color: red;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+mat-card-actions {
+  text-align: center;
+  padding: 10px 0;
+}
